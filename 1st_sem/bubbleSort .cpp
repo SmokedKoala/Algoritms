@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <iostream>
 #include <ctime>
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 #include <Windows.h>
 
 using namespace std;
