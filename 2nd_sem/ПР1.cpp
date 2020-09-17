@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <string>
 #include <exception>
+#include <vector> 
 
 using namespace std;
 
@@ -101,21 +102,44 @@ int getLength(Node *head) {
 	return count;
 }
 
+
+
+
+
+
+
+
 // Добавление в конец массива элемент
-void addLastEl(int *dim_arr, int new_dataNum){
-	int i=0;
-	while(dim_arr[i]!=NULL){
-		i++;
-	}	
-	dim_arr[i]=new_dataNum;
-	cout<<"\nНа позицию "<<i<<" был добавлен элемент "<<new_dataNum<<endl;
+void addLastEl(vector<int> vec_arr, int new_dataNum){
+	vec_arr.push_back(new_dataNum);
 }
 
 
 // Вывод значения первого элемента
-int firstEl(int *dim_arr){
-	return dim_arr[0];
+void firstEl(vector<int> vec_arr){
+	if(vec_arr.size()!=0)
+		cout<<"\nЗначение первого элемента: "<< vec_arr[0]<<endl;
+	else
+		cout<<"\nОтсутствует первый элемент"<<endl;;
 }
+
+// Вывод количества элементов в динамическом массиве
+int arrLen(vector<int> vec_arr){
+	return vec_arr.size();
+}
+
+// Вывод массива
+void printArr(vector<int> vec_arr){
+	cout<<"\nМассив: ";
+	for (int i = 0; i != vec_arr.size(); ++i) 
+        cout << vec_arr[i] << " ";
+}
+
+
+
+
+
+
 
 
 int main(){
@@ -181,8 +205,9 @@ int main(){
 				break;
 			case(2):
 				cout<<"Введите размер динамического массива\n";
-				cin>>mas_size;
-				int *dim_arr = new int (mas_size);
+//				cin>>mas_size;
+//				int *dim_arr = new int (mas_size);
+				vector<int> vec_arr;
     			while(commandNum !=6){
     				cout<<menuChoice;
 					cin>>commandNum;
@@ -190,8 +215,10 @@ int main(){
 							case(1):
 								cout<<"\nВыбрано добавление элемента\nВведите число ";
 								cin>> new_dataNum;
-//								addLastEl(dim_arr, new_dataNum);
-    							cout<<endl;
+//								addLastEl(vec_arr, new_dataNum);
+								vec_arr.push_back(new_dataNum);
+								printArr(vec_arr);
+								cout<<endl;
 								break;
 							case(2):
 								cout<<"\nВыбрано удаление элемента\n";
@@ -200,21 +227,21 @@ int main(){
 								break;
 							case(3):
 								cout<<"\nВыбрано получение значения первого элемента";
-								cout<<"\nЗначение первого элемента: "<<dim_arr[0]<<endl;
+								firstEl(vec_arr);
 								break;
 							case(4):
 								cout<<"\nВыбрана поверка, не пустая ли очередь";
-//								if (getLength(head)==0){
-//									cout<<"\nочередь пустая\n";}
-//								else 
-//									cout<<"\nв очередти находится "<<getLength(head)<<" элементов\n";
+								if (arrLen(vec_arr)==0){
+									cout<<"\nочередь пустая\n";}
+								else 
+									cout<<"\nв очередти находится "<<arrLen(vec_arr)<<" элементов\n";
 								break;
 							case(5):
 								cout<<"\nВыбрана поверка, не полная ли очередь";
-								cout<<"\nОчередь реализована на динамическом массиве, поэтому нет лимита\nв очередти находится  элементов\n";
+								cout<<"\nОчередь реализована на динамическом массиве, поэтому нет лимита\nв очередти находится "<<arrLen(vec_arr)<<" элементов\n";
 								break;
 							case(6):
-								delete []dim_arr;
+								vec_arr.clear();
 								cout<<"очередь очищена\n";
 								break;
 							default:
