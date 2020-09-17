@@ -109,10 +109,6 @@ int getLength(Node *head) {
 
 
 
-// Добавление в конец массива элемент
-void addLastEl(vector<int> vec_arr, int new_dataNum){
-	vec_arr.push_back(new_dataNum);
-}
 
 
 // Вывод значения первого элемента
@@ -135,6 +131,20 @@ void printArr(vector<int> vec_arr){
         cout << vec_arr[i] << " ";
 }
 
+// Добавление в конец массива элемент
+void addLastEl(vector<int> vec_arr, int new_dataNum){
+	vec_arr.push_back(new_dataNum);
+}
+
+// Удаление первого элемента массива
+void delFirstEl(vector<int> vec_arr){
+	if (vec_arr.size()!=0){
+	cout<<"\nБыл удалён первый элемент со значением "<<vec_arr[0]<<endl;
+	vec_arr.erase(vec_arr.begin());	
+	}
+	else
+	cout<<"Не существует первого элемента\n";
+}
 
 
 
@@ -156,10 +166,22 @@ int main(){
     string menuChoice="\n1)Добавление элемента\n2)Удаление элемента\n3)Получение значения первого элемента\n4)Пустая ли очередь?\n5)Полная ли очередь?\n6)Вернуться к выбору реализации\n";
     
 	while(true){
-    	cout<<"\nВыберете способ реализации очереди\n1)на односвязном динамическом списке\n2)на динамическом массиве\n";
+    	cout<<"\nВыберете способ реализации очереди\n1)на односвязном динамическом списке\n2)на динамическом массиве\n3)Задание 5(Префиксный калькулятор)\n4)Выход\n";
     	cin>>typeNum;
     	commandNum=0;
     	switch(typeNum){
+    		case(3):
+//    			char nextSymb=' ';
+//    			vector<int> calc_vec;
+//    			while(nextSymb!="\n"){
+//    				cin>>nextSymb;
+//    				calc_vec.push_back(nextSymb)
+				}
+    			
+				break;
+			case(4):
+				return 0;
+				break;
     		case(1):
     			while(commandNum !=6){
     				cout<<menuChoice;
@@ -204,9 +226,6 @@ int main(){
 				}
 				break;
 			case(2):
-				cout<<"Введите размер динамического массива\n";
-//				cin>>mas_size;
-//				int *dim_arr = new int (mas_size);
 				vector<int> vec_arr;
     			while(commandNum !=6){
     				cout<<menuChoice;
@@ -222,8 +241,15 @@ int main(){
 								break;
 							case(2):
 								cout<<"\nВыбрано удаление элемента\n";
-//								deleteNode(&head, 0);
-//								listPrint(head); 
+//								delFirstEl(vec_arr);
+								if (vec_arr.size()!=0){
+									cout<<"\nБыл удалён первый элемент со значением "<<vec_arr[0]<<endl;
+									vec_arr.erase(vec_arr.begin());	
+								}
+								else
+								cout<<"Не существует первого элемента\n";
+								printArr(vec_arr);
+								cout<<endl;
 								break;
 							case(3):
 								cout<<"\nВыбрано получение значения первого элемента";
@@ -248,9 +274,7 @@ int main(){
 								break;
 					}
 				}
-				break;	
+				break;
 		}
-    	
 	}
-	return 0;
 }

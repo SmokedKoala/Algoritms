@@ -1,3 +1,3 @@
-C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir
-C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir
+D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/edit_cache.dir

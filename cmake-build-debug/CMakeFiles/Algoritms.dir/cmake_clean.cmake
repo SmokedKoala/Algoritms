@@ -1,7 +1,6 @@
 file(REMOVE_RECURSE
   "Algoritms.exe"
   "Algoritms.exe.manifest"
-  "Algoritms.lib"
   "Algoritms.pdb"
   "CMakeFiles/Algoritms.dir/1st_sem/FibonacciSearch.cpp.obj"
   "CMakeFiles/Algoritms.dir/1st_sem/KMP_Algorithm_for_Pattern_Searching.cpp.obj"
@@ -15,6 +14,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Algoritms.dir/1st_sem/linkedList.cpp.obj"
   "CMakeFiles/Algoritms.dir/1st_sem/queue.cpp.obj"
   "CMakeFiles/Algoritms.dir/1st_sem/selectionSort.cpp.obj"
+  "libAlgoritms.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

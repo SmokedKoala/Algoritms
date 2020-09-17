@@ -4,20 +4,20 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/user/CLionProjects/Algoritms/1st_sem/FibonacciSearch.cpp" "C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/FibonacciSearch.cpp.obj"
-  "C:/Users/user/CLionProjects/Algoritms/1st_sem/KMP_Algorithm_for_Pattern_Searching.cpp" "C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/KMP_Algorithm_for_Pattern_Searching.cpp.obj"
-  "C:/Users/user/CLionProjects/Algoritms/1st_sem/LinearSearch .cpp" "C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/LinearSearch_.cpp.obj"
-  "C:/Users/user/CLionProjects/Algoritms/1st_sem/Merge_QuickSort.cpp" "C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/Merge_QuickSort.cpp.obj"
-  "C:/Users/user/CLionProjects/Algoritms/1st_sem/ShakerSort.cpp" "C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/ShakerSort.cpp.obj"
-  "C:/Users/user/CLionProjects/Algoritms/1st_sem/ShellSort.cpp" "C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/ShellSort.cpp.obj"
-  "C:/Users/user/CLionProjects/Algoritms/1st_sem/bubbleSort .cpp" "C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/bubbleSort_.cpp.obj"
-  "C:/Users/user/CLionProjects/Algoritms/1st_sem/countingSort .cpp" "C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/countingSort_.cpp.obj"
-  "C:/Users/user/CLionProjects/Algoritms/1st_sem/insertionSort.cpp" "C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/insertionSort.cpp.obj"
-  "C:/Users/user/CLionProjects/Algoritms/1st_sem/linkedList.cpp" "C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/linkedList.cpp.obj"
-  "C:/Users/user/CLionProjects/Algoritms/1st_sem/queue.cpp" "C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/queue.cpp.obj"
-  "C:/Users/user/CLionProjects/Algoritms/1st_sem/selectionSort.cpp" "C:/Users/user/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/selectionSort.cpp.obj"
+  "D:/CLionProjects/Algoritms/1st_sem/FibonacciSearch.cpp" "D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/FibonacciSearch.cpp.obj"
+  "D:/CLionProjects/Algoritms/1st_sem/KMP_Algorithm_for_Pattern_Searching.cpp" "D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/KMP_Algorithm_for_Pattern_Searching.cpp.obj"
+  "D:/CLionProjects/Algoritms/1st_sem/LinearSearch .cpp" "D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/LinearSearch_.cpp.obj"
+  "D:/CLionProjects/Algoritms/1st_sem/Merge_QuickSort.cpp" "D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/Merge_QuickSort.cpp.obj"
+  "D:/CLionProjects/Algoritms/1st_sem/ShakerSort.cpp" "D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/ShakerSort.cpp.obj"
+  "D:/CLionProjects/Algoritms/1st_sem/ShellSort.cpp" "D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/ShellSort.cpp.obj"
+  "D:/CLionProjects/Algoritms/1st_sem/bubbleSort .cpp" "D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/bubbleSort_.cpp.obj"
+  "D:/CLionProjects/Algoritms/1st_sem/countingSort .cpp" "D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/countingSort_.cpp.obj"
+  "D:/CLionProjects/Algoritms/1st_sem/insertionSort.cpp" "D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/insertionSort.cpp.obj"
+  "D:/CLionProjects/Algoritms/1st_sem/linkedList.cpp" "D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/linkedList.cpp.obj"
+  "D:/CLionProjects/Algoritms/1st_sem/queue.cpp" "D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/queue.cpp.obj"
+  "D:/CLionProjects/Algoritms/1st_sem/selectionSort.cpp" "D:/CLionProjects/Algoritms/cmake-build-debug/CMakeFiles/Algoritms.dir/1st_sem/selectionSort.cpp.obj"
   )
-set(CMAKE_CXX_COMPILER_ID "MSVC")
+set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
