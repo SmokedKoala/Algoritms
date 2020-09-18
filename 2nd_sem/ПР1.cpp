@@ -304,7 +304,7 @@ int main(){
 								str_for_calc.erase(str_for_calc.begin());
 							}
 							else {
-								if (str_for_calc.size()==2){
+								if (str_for_calc.size()==1){
 									cur_B=str_for_calc[0];
 									str_for_calc.erase(str_for_calc.begin());
 								}
@@ -326,73 +326,87 @@ int main(){
 							if (cur_B!=""){
 								//Вынести в функцию
 								if (major_sign==""){
+									A = atoi(cur_A.c_str());
+									B = atoi(cur_B.c_str());
 									if (minor_sign=="+"){
-										cur_res=+(A+B);
+										cur_res+=(A+B);
 									}
 									if (minor_sign=="-"){
-										cur_res=+(A-B);
+										cur_res+=(A-B);
 									}
 									if (minor_sign=="*"){
-										cur_res=+(A*B);
+										cur_res+=(A*B);
 									}
 									if (minor_sign=="/"){
-										cur_res=+(A/B);
+										cur_res+=(A/B);
 									}
 								}
 								if (major_sign=="+"){
+									A = atoi(cur_A.c_str());
+									B = atoi(cur_B.c_str());
+									C= atoi(cur_C.c_str());
 									if (minor_sign=="+"){
-										cur_res=+(A+B+C);
+										cur_res+=(A+B+C);
 									}
 									if (minor_sign=="-"){
-										cur_res=+(A-B+C);
+										cur_res+=(A-B+C);
 									}
 									if (minor_sign=="*"){
-										cur_res=+(A*B+C);
+										cur_res+=(A*B+C);
 									}
 									if (minor_sign=="/"){
-										cur_res=+(A/B+C);
+										cur_res+=(A/B+C);
 									}
 								}
 								if (major_sign=="-"){
+									A = atoi(cur_A.c_str());
+									B = atoi(cur_B.c_str());
+									C= atoi(cur_C.c_str());
 									if (minor_sign=="+"){
-										cur_res=+(A+B-C);
+										cur_res+=(A+B-C);
 									}
 									if (minor_sign=="-"){
-										cur_res=+(A-B-C);
+										cur_res+=(A-B-C);
 									}
 									if (minor_sign=="*"){
-										cur_res=+(A*B-C);
+										cur_res+=(A*B-C);
 									}
 									if (minor_sign=="/"){
-										cur_res=+(A/B-C);
+										cur_res+=(A/B-C);
 									}
 								}
 								if (major_sign=="*"){
+									A = atoi(cur_A.c_str());
+									B = atoi(cur_B.c_str());
+									C= atoi(cur_C.c_str());
 									if (minor_sign=="+"){
-										cur_res=+((A+B)*C);
+										cur_res+=((A+B)*C);
 									}
 									if (minor_sign=="-"){
-										cur_res=+((A-B)*C);
+										cur_res+=((A-B)*C);
 									}
 									if (minor_sign=="*"){
-										cur_res=+(A*B*C);
+										cur_res+=(A*B*C);
 									}
 									if (minor_sign=="/"){
-										cur_res=+(A/B*C);
+										cur_res+=(A/B*C);
 									}
 								}
 								if (major_sign=="/"){
+									A = atoi(cur_A.c_str());
+									B = atoi(cur_B.c_str());
+									C= atoi(cur_C.c_str());
 									if (minor_sign=="+"){
-										cur_res=+((A+B)/C);
+										cur_res+=((A+B)/C);
 									}
 									if (minor_sign=="-"){
-										cur_res=+((A-B)/C);
+										cur_res+=((A-B)/C);
 									}
 									if (minor_sign=="*"){
-										cur_res=+(A*B/C);
+										cur_res+=(A*B/C);
 									}
 									if (minor_sign=="/"){
-										cur_res=+(A/B/C);
+										cur_res+=(A/B/C);
 									}
 								}
 								minor_sign="";
@@ -402,7 +416,7 @@ int main(){
 								cur_C="";
 							}
 						}
-						cout<<"minor_sign:"<<minor_sign<<"_"<<endl;
+						cout<<"minor_sign:"<<minor_sign<<endl;
 						cout<<"major_sign: "<<major_sign<<endl;
 						cout<<"cur_A: "<<cur_A<<endl;
 						cout<<"cur_B: "<<cur_B<<endl;
