@@ -158,7 +158,168 @@ void isFull(vector<int> vec_arr){
 		cout<<"\nв очередти находится "<<arrLen(vec_arr)<<" из 10 элементов\n";
 }
 
-
+// Калькулятор
+void calc(){
+	vector <string> str_for_calc;
+    string ch="";
+  	int cur_res=0;
+   	string major_sign ="";
+	string minor_sign ="";
+	string cur_A ="";
+	string cur_B ="";
+	string cur_C ="";
+	int A =0;
+	int B=0;
+	int C =0;
+	while (cin>>ch){
+		str_for_calc.push_back(ch);
+		if (isspace(cin.peek()))
+		{
+			if (cin.get()=='\n')
+				break;	
+			}
+			else
+				break;
+	}
+	while (str_for_calc.size()>0){
+		if (str_for_calc[0]=="+" or str_for_calc[0]=="-" or str_for_calc[0]=="*" or str_for_calc[0]=="/"){
+			if (major_sign==""){
+				major_sign=minor_sign;
+//				str_for_calc.erase(str_for_calc.begin());
+			}
+			minor_sign=str_for_calc[0];
+			str_for_calc.erase(str_for_calc.begin());
+		}
+		else {
+			if (str_for_calc.size()==1){
+				cur_B=str_for_calc[0];
+				str_for_calc.erase(str_for_calc.begin());
+			}
+			else{
+				if (str_for_calc[1]=="+" or str_for_calc[1]=="-" or str_for_calc[1]=="*" or str_for_calc[1]=="/"){
+					cur_C=str_for_calc[0];
+					str_for_calc.erase(str_for_calc.begin());
+				}
+				else{
+					cur_A=str_for_calc[0];
+					str_for_calc.erase(str_for_calc.begin());
+					cur_B=str_for_calc[0];
+					str_for_calc.erase(str_for_calc.begin());
+				}
+			}
+		}
+		//подсчёт текущего выражения 
+		if (cur_B!=""){
+			if (major_sign==""){
+				A = atoi(cur_A.c_str());
+				B = atoi(cur_B.c_str());
+				if (minor_sign=="+"){
+					cur_res+=(A+B);
+				}
+				if (minor_sign=="-"){
+					cur_res+=(A-B);
+				}
+				if (minor_sign=="*"){
+					cur_res+=(A*B);
+				}
+				if (minor_sign=="/"){
+					cur_res+=(A/B);
+				}
+			}
+			if (cur_C!=""){
+				if (major_sign=="+"){
+					A = atoi(cur_A.c_str());
+					B = atoi(cur_B.c_str());
+					C= atoi(cur_C.c_str());
+					if (minor_sign=="+"){
+						cur_res+=(A+B+C);
+					}
+					if (minor_sign=="-"){
+						cur_res+=(A-B+C);
+					}
+					if (minor_sign=="*"){
+						cur_res+=(A*B+C);
+					}
+					if (minor_sign=="/"){
+						cur_res+=(A/B+C);
+					}
+//					major_sign="";
+				}
+				if (major_sign=="-"){
+					A = atoi(cur_A.c_str());
+					B = atoi(cur_B.c_str());
+					C= atoi(cur_C.c_str());
+					if (minor_sign=="+"){
+						cur_res+=(A+B-C);
+					}
+					if (minor_sign=="-"){
+						cur_res+=(A-B-C);
+					}
+					if (minor_sign=="*"){
+						cur_res+=(A*B-C);
+					}
+					if (minor_sign=="/"){
+						cur_res+=(A/B-C);
+					}
+//					major_sign="";
+				}
+				if (major_sign=="*"){
+					A = atoi(cur_A.c_str());
+					B = atoi(cur_B.c_str());
+					C= atoi(cur_C.c_str());
+					if (minor_sign=="+"){
+						cur_res+=((A+B)*C);
+					}
+					if (minor_sign=="-"){
+						cur_res+=((A-B)*C);
+					}
+					if (minor_sign=="*"){
+						cur_res+=(A*B*C);
+					}
+					if (minor_sign=="/"){
+						cur_res+=(A/B*C);
+					}
+//					major_sign="";
+				}
+				if (major_sign=="/"){
+					A = atoi(cur_A.c_str());
+					B = atoi(cur_B.c_str());
+					C= atoi(cur_C.c_str());
+					if (minor_sign=="+"){
+						cur_res+=((A+B)/C);
+					}
+					if (minor_sign=="-"){
+						cur_res+=((A-B)/C);
+					}
+					if (minor_sign=="*"){
+						cur_res+=(A*B/C);
+					}
+					if (minor_sign=="/"){
+						cur_res+=(A/B/C);
+					}
+//					major_sign="";
+				}
+			}
+			cout<<"minor_sign:"<<minor_sign<<endl;
+			cout<<"major_sign: "<<major_sign<<endl;
+		cout<<"cur_A: "<<cur_A<<endl;
+		cout<<"cur_B: "<<cur_B<<endl;
+		cout<<"cur_C: "<<cur_C<<endl;
+		cout<<"cur_res: "<<cur_res<<endl;
+			minor_sign="";
+			cur_A="";
+			cur_B="";
+			cur_C="";
+			
+		}
+	}
+	cout<<"minor_sign:"<<minor_sign<<endl;
+	cout<<"major_sign: "<<major_sign<<endl;
+	cout<<"cur_A: "<<cur_A<<endl;
+	cout<<"cur_B: "<<cur_B<<endl;
+	cout<<"cur_C: "<<cur_C<<endl;
+	cout<<"cur_res: "<<cur_res<<endl;
+}
 
 
 
@@ -179,17 +340,6 @@ int main(){
     	cout<<"\nВыберете способ реализации очереди\n1)на односвязном динамическом списке\n2)на динамическом массиве\n3)Задание 5(Префиксный калькулятор)\n4)Выход\n";
     	cin>>typeNum;
     	commandNum=0;
-    	vector <string> str_for_calc;
-    	string ch="";
-    	int cur_res=0;
-    	string major_sign ="";
-		string minor_sign ="";
-		string cur_A ="";
-		string cur_B ="";
-		string cur_C ="";
-		int A =0;
-		int B=0;
-		int C =0;
     	vector<int> vec_arr;
     	switch(typeNum){
     		
@@ -287,141 +437,7 @@ int main(){
 				break;
 				case(3):
     				cout<<"\nВведите через пробел префиксное выражение для калькулятора\n";
-    				while (cin>>ch){
-						str_for_calc.push_back(ch);
-						if (isspace(cin.peek()))
-						{
-							if (cin.get()=='\n')
-								break;	
-						}
-						else
-							break;
-						}
-						while (str_for_calc.size()>0){
-							if (str_for_calc[0]=="+" or str_for_calc[0]=="-" or str_for_calc[0]=="*" or str_for_calc[0]=="/"){
-								major_sign=minor_sign;
-								minor_sign=str_for_calc[0];
-								str_for_calc.erase(str_for_calc.begin());
-							}
-							else {
-								if (str_for_calc.size()==1){
-									cur_B=str_for_calc[0];
-									str_for_calc.erase(str_for_calc.begin());
-								}
-								else{
-									if (str_for_calc[1]=="+" or str_for_calc[1]=="-" or str_for_calc[1]=="*" or str_for_calc[1]=="/"){
-										cur_C=str_for_calc[0];
-										str_for_calc.erase(str_for_calc.begin());
-									}
-									else{
-										cur_A=str_for_calc[0];
-										str_for_calc.erase(str_for_calc.begin());
-										cur_B=str_for_calc[0];
-										str_for_calc.erase(str_for_calc.begin());
-									}
-										
-								}
-								
-							}
-							if (cur_B!=""){
-								//Вынести в функцию
-								if (major_sign==""){
-									A = atoi(cur_A.c_str());
-									B = atoi(cur_B.c_str());
-									if (minor_sign=="+"){
-										cur_res+=(A+B);
-									}
-									if (minor_sign=="-"){
-										cur_res+=(A-B);
-									}
-									if (minor_sign=="*"){
-										cur_res+=(A*B);
-									}
-									if (minor_sign=="/"){
-										cur_res+=(A/B);
-									}
-								}
-								if (major_sign=="+"){
-									A = atoi(cur_A.c_str());
-									B = atoi(cur_B.c_str());
-									C= atoi(cur_C.c_str());
-									if (minor_sign=="+"){
-										cur_res+=(A+B+C);
-									}
-									if (minor_sign=="-"){
-										cur_res+=(A-B+C);
-									}
-									if (minor_sign=="*"){
-										cur_res+=(A*B+C);
-									}
-									if (minor_sign=="/"){
-										cur_res+=(A/B+C);
-									}
-								}
-								if (major_sign=="-"){
-									A = atoi(cur_A.c_str());
-									B = atoi(cur_B.c_str());
-									C= atoi(cur_C.c_str());
-									if (minor_sign=="+"){
-										cur_res+=(A+B-C);
-									}
-									if (minor_sign=="-"){
-										cur_res+=(A-B-C);
-									}
-									if (minor_sign=="*"){
-										cur_res+=(A*B-C);
-									}
-									if (minor_sign=="/"){
-										cur_res+=(A/B-C);
-									}
-								}
-								if (major_sign=="*"){
-									A = atoi(cur_A.c_str());
-									B = atoi(cur_B.c_str());
-									C= atoi(cur_C.c_str());
-									if (minor_sign=="+"){
-										cur_res+=((A+B)*C);
-									}
-									if (minor_sign=="-"){
-										cur_res+=((A-B)*C);
-									}
-									if (minor_sign=="*"){
-										cur_res+=(A*B*C);
-									}
-									if (minor_sign=="/"){
-										cur_res+=(A/B*C);
-									}
-								}
-								if (major_sign=="/"){
-									A = atoi(cur_A.c_str());
-									B = atoi(cur_B.c_str());
-									C= atoi(cur_C.c_str());
-									if (minor_sign=="+"){
-										cur_res+=((A+B)/C);
-									}
-									if (minor_sign=="-"){
-										cur_res+=((A-B)/C);
-									}
-									if (minor_sign=="*"){
-										cur_res+=(A*B/C);
-									}
-									if (minor_sign=="/"){
-										cur_res+=(A/B/C);
-									}
-								}
-								minor_sign="";
-								major_sign="";
-								cur_A="";
-								cur_B="";
-								cur_C="";
-							}
-						}
-						cout<<"minor_sign:"<<minor_sign<<endl;
-						cout<<"major_sign: "<<major_sign<<endl;
-						cout<<"cur_A: "<<cur_A<<endl;
-						cout<<"cur_B: "<<cur_B<<endl;
-						cout<<"cur_C: "<<cur_C<<endl;
-						cout<<"cur_res: "<<cur_res<<endl;
+    				calc();
 						
 				break;
 			case(4):
