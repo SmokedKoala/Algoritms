@@ -1,5 +1,4 @@
-#include <bits/stdc++.h> 
-#include <cstdio>
+#include <bits/stdc++.h>
 #include <iostream>
 #include <Windows.h>
 #include <string>
@@ -8,7 +7,7 @@
 #include <stdlib.h>
 
 using namespace std;
-
+// конструктор для элемента ЛОС
 class Node { 
 public: 
     int dataNum;
@@ -20,10 +19,10 @@ public:
 		this->next = next;
 	}
 };
-
+// вывод очереди через ЛОС
 void listPrint(Node* n) 
 { 
-	cout<<"Текущий массив: ";
+	cout<<"Текущая очередь: ";
     while (n != NULL) { 
         cout << n->dataNum << " "; 
         n = n->next; 
@@ -127,10 +126,37 @@ void printArr(vector<int> vec_arr){
         cout << vec_arr[i] << " ";
 }
 
-// Добавление в конец массива элемент
-void addLastEl(vector<int> vec_arr, int new_dataNum){
-	vec_arr.push_back(new_dataNum);
+int* createArray(int *massiv, int number) 
+{
+    return massiv = new int[number];    
 }
+
+void deleteArray(int* massiv) 
+{
+    delete[] massiv;
+}
+
+// Добавление в конец массива элемент
+void addLastEl(int *massiv, int number)
+{
+    int *temp = NULL;
+    int numTemp = number + 1;
+    int sum = 0;
+    temp = createArray(temp, numTemp); 
+    for (int i = 0; i < number; i++)
+    {
+        temp[i] = i; 
+        sum += massiv[i];
+    }
+    temp[numTemp] = sum; 
+    deleteArray(massiv); 
+
+    massiv = createArray(temp, numTemp); 
+
+    massiv = temp;
+    deleteArray(temp); 
+}
+
 
 // Удаление первого элемента массива
 void delFirstEl(vector<int> vec_arr){
@@ -183,32 +209,51 @@ void calc(){
 	}
 	while (str_for_calc.size()>0){
 		if (str_for_calc[0]=="+" or str_for_calc[0]=="-" or str_for_calc[0]=="*" or str_for_calc[0]=="/"){
-			if (major_sign==""){
-				major_sign=minor_sign;
-//				str_for_calc.erase(str_for_calc.begin());
+			if((str_for_calc[1]=="+" or str_for_calc[1]=="-" or str_for_calc[1]=="*" or str_for_calc[1]=="/") and (str_for_calc[2]!="+" or str_for_calc[2]!="-" or str_for_calc[2]!="*" or str_for_calc[2]!="/")){
+				major_sign = str_for_calc[0];
+				str_for_calc.erase(str_for_calc.begin());
+				minor_sign = str_for_calc[0];
+				str_for_calc.erase(str_for_calc.begin());
+				cur_A = str_for_calc[0];
+				str_for_calc.erase(str_for_calc.begin());
+				cur_B = str_for_calc[0];
+				str_for_calc.erase(str_for_calc.begin());
+				A = atoi(cur_A.c_str());
+				B = atoi(cur_B.c_str());
+				cur_A="";
+				cur_B="";
+				if (minor_sign=="+")
+					C = A+B;
+				if (minor_sign=="-")
+					C = A-B;
+				if (minor_sign=="*")
+					C = A*B;
+				if (minor_sign=="/")
+					C = A/B;
+				minor_sign="";
+				cur_C="-1";
 			}
-			minor_sign=str_for_calc[0];
-			str_for_calc.erase(str_for_calc.begin());
-		}
-		else {
-			if (str_for_calc.size()==1){
-				cur_B=str_for_calc[0];
+			if ((str_for_calc[1]!="+" or str_for_calc[1]!="-" or str_for_calc[1]!="*" or str_for_calc[1]!="/") and (str_for_calc[2]=="+" or str_for_calc[2]=="-" or str_for_calc[2]=="*" or str_for_calc[2]=="/")){
+				major_sign = str_for_calc[0];
+				str_for_calc.erase(str_for_calc.begin());
+				cur_C = str_for_calc[0];
+				str_for_calc.erase(str_for_calc.begin());
+				C = atoi(cur_C.c_str());
+			}
+			if ((str_for_calc[1]!="+" or str_for_calc[1]!="-" or str_for_calc[1]!="*" or str_for_calc[1]!="/") and (str_for_calc[2]!="+" or str_for_calc[2]!="-" or str_for_calc[2]!="*" or str_for_calc[2]!="/")){
+				minor_sign = str_for_calc[0];
+				str_for_calc.erase(str_for_calc.begin());
+				cur_A = str_for_calc[0];
+				str_for_calc.erase(str_for_calc.begin());
+				cur_B = str_for_calc[0];
 				str_for_calc.erase(str_for_calc.begin());
 			}
-			else{
-				if (str_for_calc[1]=="+" or str_for_calc[1]=="-" or str_for_calc[1]=="*" or str_for_calc[1]=="/"){
-					cur_C=str_for_calc[0];
-					str_for_calc.erase(str_for_calc.begin());
-				}
-				else{
-					cur_A=str_for_calc[0];
-					str_for_calc.erase(str_for_calc.begin());
-					cur_B=str_for_calc[0];
-					str_for_calc.erase(str_for_calc.begin());
-				}
-			}
 		}
-		//подсчёт текущего выражения 
+		else{
+			cout<<"неверный порядок символов"<<endl;
+		}
+	}
+	//подсчёт текущего выражения 
 		if (cur_B!=""){
 			if (major_sign==""){
 				A = atoi(cur_A.c_str());
@@ -230,7 +275,6 @@ void calc(){
 				if (major_sign=="+"){
 					A = atoi(cur_A.c_str());
 					B = atoi(cur_B.c_str());
-					C= atoi(cur_C.c_str());
 					if (minor_sign=="+"){
 						cur_res+=(A+B+C);
 					}
@@ -248,25 +292,23 @@ void calc(){
 				if (major_sign=="-"){
 					A = atoi(cur_A.c_str());
 					B = atoi(cur_B.c_str());
-					C= atoi(cur_C.c_str());
 					if (minor_sign=="+"){
-						cur_res+=(A+B-C);
+						cur_res+=(C-A-B);
 					}
 					if (minor_sign=="-"){
-						cur_res+=(A-B-C);
+						cur_res+=(C-A+B);
 					}
 					if (minor_sign=="*"){
-						cur_res+=(A*B-C);
+						cur_res+=(C-A*B);
 					}
 					if (minor_sign=="/"){
-						cur_res+=(A/B-C);
+						cur_res+=(C-A/B);
 					}
 //					major_sign="";
 				}
 				if (major_sign=="*"){
 					A = atoi(cur_A.c_str());
 					B = atoi(cur_B.c_str());
-					C= atoi(cur_C.c_str());
 					if (minor_sign=="+"){
 						cur_res+=((A+B)*C);
 					}
@@ -284,42 +326,36 @@ void calc(){
 				if (major_sign=="/"){
 					A = atoi(cur_A.c_str());
 					B = atoi(cur_B.c_str());
-					C= atoi(cur_C.c_str());
 					if (minor_sign=="+"){
-						cur_res+=((A+B)/C);
+						cur_res+=(C/(A+B));
 					}
 					if (minor_sign=="-"){
-						cur_res+=((A-B)/C);
+						cur_res+=(C/(A-B));
 					}
 					if (minor_sign=="*"){
-						cur_res+=(A*B/C);
+						cur_res+=(C/A*B);
 					}
 					if (minor_sign=="/"){
-						cur_res+=(A/B/C);
+						cur_res+=(C/A/B);
 					}
-//					major_sign="";
 				}
 			}
-			cout<<"minor_sign:"<<minor_sign<<endl;
-			cout<<"major_sign: "<<major_sign<<endl;
-		cout<<"cur_A: "<<cur_A<<endl;
-		cout<<"cur_B: "<<cur_B<<endl;
-		cout<<"cur_C: "<<cur_C<<endl;
-		cout<<"cur_res: "<<cur_res<<endl;
-			minor_sign="";
-			cur_A="";
-			cur_B="";
-			cur_C="";
-			
+		major_sign="";	
+		cur_A="";
+		cur_B="";
+		cur_C="";
+		minor_sign="";
 		}
-	}
-	cout<<"minor_sign:"<<minor_sign<<endl;
-	cout<<"major_sign: "<<major_sign<<endl;
-	cout<<"cur_A: "<<cur_A<<endl;
-	cout<<"cur_B: "<<cur_B<<endl;
-	cout<<"cur_C: "<<cur_C<<endl;
-	cout<<"cur_res: "<<cur_res<<endl;
+
+//	cout<<"minor_sign:"<<minor_sign<<endl;
+//	cout<<"major_sign: "<<major_sign<<endl;
+//	cout<<"cur_A: "<<cur_A<<endl;
+//	cout<<"cur_B: "<<cur_B<<endl;
+//	cout<<"cur_C: "<<cur_C<<endl;
+//	cout<<"C: "<<C<<endl;
+	cout<<"Результат: "<<cur_res<<endl;
 }
+
 
 
 
@@ -372,11 +408,14 @@ int main(){
 								if (getLength(head)==0){
 									cout<<"\nочередь пустая\n";}
 								else 
-									cout<<"\nв очередти находится "<<getLength(head)<<" элементов\n";
+									cout<<"\nв очереди находится "<<getLength(head)<<" элементов\n";
 								break;
 							case(5):
 								cout<<"\nВыбрана поверка, не полная ли очередь";
-								cout<<"\nОчередь реализована на динамическом ЛОС, поэтому нет лимита\nв очередти находится "<<getLength(head)<<" элементов\n";
+								if (getLength(head)==10){
+									cout<<"\nочередь полная(10 элементов)\n";}
+								else 
+									cout<<"\nв очереди находится элементов: "<<getLength(head)<<" из 10\n";
 								break;
 							case(6):
 								while(head!=NULL){
@@ -446,3 +485,4 @@ int main(){
 		}
 	}
 }
+
