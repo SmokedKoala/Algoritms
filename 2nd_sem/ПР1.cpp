@@ -125,30 +125,28 @@ void printArr(vector<int> vec_arr){
 	for (int i = 0; i != vec_arr.size(); ++i) 
         cout << vec_arr[i] << " ";
 }
-
+// создание массива
 int* createArray(int *massiv, int number) 
 {
     return massiv = new int[number];    
 }
-
+// удаление массива
 void deleteArray(int* massiv) 
 {
     delete[] massiv;
 }
 
 // Добавление в конец массива элемент
-void addLastEl(int *massiv, int number)
+void addLastEl(int *massiv, int size, int number)
 {
     int *temp = NULL;
-    int numTemp = number + 1;
-    int sum = 0;
+    int numTemp = size + 1;
     temp = createArray(temp, numTemp); 
-    for (int i = 0; i < number; i++)
+    for (int i = 0; i < size; i++)
     {
-        temp[i] = i; 
-        sum += massiv[i];
+       temp[i] = massiv[i]; 
     }
-    temp[numTemp] = sum; 
+    temp[numTemp] = number; 
     deleteArray(massiv); 
 
     massiv = createArray(temp, numTemp); 
@@ -159,10 +157,21 @@ void addLastEl(int *massiv, int number)
 
 
 // Удаление первого элемента массива
-void delFirstEl(vector<int> vec_arr){
-	if (vec_arr.size()!=0){
-	cout<<"\nБыл удалён первый элемент со значением "<<vec_arr[0]<<endl;
-	vec_arr.erase(vec_arr.begin());	
+void delFirstEl(int *massiv, int size){
+	if (size!=0){
+	int *temp = NULL;
+    int numTemp = size - 1;
+    temp = createArray(temp, numTemp); 
+    for (int i = 0; i < size; i++)
+    {
+        temp[i] = massiv[i+1]; 
+    }
+    deleteArray(massiv); 
+
+    massiv = createArray(temp, numTemp); 
+
+    massiv = temp;
+    deleteArray(temp); 	
 	}
 	else
 	cout<<"Не существует первого элемента\n";
