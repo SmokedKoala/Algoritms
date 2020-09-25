@@ -10,7 +10,7 @@ using namespace std;
 // конструктор для элемента ЛОС
 class Node { 
 public: 
-    int dataNum;
+    float dataNum;
     Node* next; 
     
     Node(){};
@@ -30,7 +30,7 @@ void listPrint(Node* n)
 } 
   
 //добавление элемента в конец списка
-void addLast(Node **head_ref, int dataNum) {
+void addLast(Node **head_ref, float dataNum) {
 		Node *new_node = new Node();
 		new_node->dataNum = dataNum;  
     	new_node->next=NULL;
@@ -107,7 +107,7 @@ int getLength(Node *head) {
 
 
 // Вывод значения первого элемента
-void firstEl(vector<int> vec_arr){
+void firstEl(vector<float> vec_arr){
 	if(vec_arr.size()!=0)
 		cout<<"\nЗначение первого элемента: "<< vec_arr[0]<<endl;
 	else
@@ -115,31 +115,31 @@ void firstEl(vector<int> vec_arr){
 }
 
 // Вывод количества элементов в динамическом массиве
-int arrLen(vector<int> vec_arr){
+int arrLen(vector<float> vec_arr){
 	return vec_arr.size();
 }
 
 // Вывод массива
-void printArr(vector<int> vec_arr){
+void printArr(vector<float> vec_arr){
 	cout<<"\nМассив: ";
 	for (int i = 0; i != vec_arr.size(); ++i) 
         cout << vec_arr[i] << " ";
 }
 // создание массива
-int* createArray(int *massiv, int number) 
+float* createArray(float *massiv, int number) 
 {
-    return massiv = new int[number];    
+    return massiv = new float[number];    
 }
 // удаление массива
-void deleteArray(int* massiv) 
+void deleteArray(float* massiv) 
 {
     delete[] massiv;
 }
 
 // Добавление в конец массива элемент
-void addLastEl(int *massiv, int size, int number)
+void addLastEl(float *massiv, int size, float number)
 {
-    int *temp = NULL;
+    float *temp = NULL;
     int numTemp = size + 1;
     temp = createArray(temp, numTemp); 
     for (int i = 0; i < size; i++)
@@ -157,9 +157,9 @@ void addLastEl(int *massiv, int size, int number)
 
 
 // Удаление первого элемента массива
-void delFirstEl(int *massiv, int size){
+void delFirstEl(float *massiv, int size){
 	if (size!=0){
-	int *temp = NULL;
+	float *temp = NULL;
     int numTemp = size - 1;
     temp = createArray(temp, numTemp); 
     for (int i = 0; i < size; i++)
@@ -178,7 +178,7 @@ void delFirstEl(int *massiv, int size){
 }
 
 // Проверка, пустая ли очередь
-void isEmpty(vector<int> vec_arr){
+void isEmpty(vector<float> vec_arr){
 	if (arrLen(vec_arr)==0){
 		cout<<"\nочередь пустая\n";}
 	else 
@@ -186,7 +186,7 @@ void isEmpty(vector<int> vec_arr){
 }
 
 //Проверка, полная ли очередь
-void isFull(vector<int> vec_arr){
+void isFull(vector<float> vec_arr){
 	if (arrLen(vec_arr)==10){
 		cout<<"\nочередь полная\n";}
 	else 
@@ -378,14 +378,15 @@ int main(){
          << endl;
     int typeNum;
     int commandNum=0;
-    int new_dataNum,mas_size;
+    float new_dataNum;
+	int mas_size;
     string menuChoice="\n1)Добавление элемента\n2)Удаление элемента\n3)Получение значения первого элемента\n4)Пустая ли очередь?\n5)Полная ли очередь?\n6)Вернуться к выбору реализации\n";
     
 	while(true){
     	cout<<"\nВыберете способ реализации очереди\n1)на односвязном динамическом списке\n2)на динамическом массиве\n3)Задание 5(Префиксный калькулятор)\n4)Выход\n";
     	cin>>typeNum;
     	commandNum=0;
-    	vector<int> vec_arr;
+    	vector<float> vec_arr;
     	switch(typeNum){
     		
     		case(1):
