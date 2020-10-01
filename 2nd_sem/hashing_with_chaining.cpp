@@ -4,17 +4,17 @@ using namespace std;
 
 class Hash 
 { 
-	int BUCKET; // No. of buckets 
+	int BUCKET; // No. корзины 
 
-	// Pointer to an array containing buckets 
+	// Указатель на список с корзинами 
 	list<int> *table; 
 public: 
-	Hash(int V); // Constructor 
+	Hash(int V); // конструктор 
 
-	// inserts a key into hash table 
+	// добавление ключа в хеш таблицу 
 	void insertItem(int x); 
 
-	// deletes a key from hash table 
+	// удаление ключа из хеш таблицы 
 	void deleteItem(int key); 
 
 	// hash function to map values to key 
@@ -39,10 +39,10 @@ void Hash::insertItem(int key)
 
 void Hash::deleteItem(int key) 
 { 
-// get the hash index of key 
+// получение хеш индекса ключа 
 int index = hashFunction(key); 
 
-// find the key in (inex)th list 
+// найти ключ в i-том списке 
 list <int> :: iterator i; 
 for (i = table[index].begin(); 
 		i != table[index].end(); i++) { 
@@ -50,12 +50,12 @@ for (i = table[index].begin();
 	break; 
 } 
 
-// if key is found in hash table, remove it 
+// если ключ найден в хеш таблице, удалить его
 if (i != table[index].end()) 
 	table[index].erase(i); 
 } 
 
-// function to display hash table 
+// функция для отображения хеш таблицы 
 void Hash::displayHash() { 
 for (int i = 0; i < BUCKET; i++) { 
 	cout << i; 
@@ -65,7 +65,7 @@ for (int i = 0; i < BUCKET; i++) {
 } 
 } 
 
-// Driver program 
+
 int main() 
 { 
 // array that contains keys to be mapped 
