@@ -8,7 +8,7 @@
 
 using namespace std;
 
- int max_level = INT_MIN; 
+ 
  int sum=0;
 enum Color {RED, BLACK}; 
   //структура элемента
@@ -122,21 +122,16 @@ int heightOfTreeHelper(Node * node)
     return max+1;
 }
 // функция подсчёта суммы элементов на листьях
-void sumOfNodesAtMaxDepthHelper(Node *root,int level) 
+void sumOfNodesAtMaxDepthHelper(Node *root) 
 { 
-    if(root == NULL) 
-    return; 
-    if(level > max_level) 
-    { 
-        sum = root->data; 
-        max_level = level; 
-    } 
-    else if(level == max_level) 
-    { 
-        sum = sum + root->data; 
-    } 
-    sumOfNodesAtMaxDepthHelper(root ->left, level + 1); 
-    sumOfNodesAtMaxDepthHelper(root ->right, level + 1);  
+	if (root == NULL)
+		return;
+    if(root->left == NULL and root->right == NULL){
+    	sum = sum + root->data;
+		return;
+	}
+    sumOfNodesAtMaxDepthHelper(root ->left); 
+    sumOfNodesAtMaxDepthHelper(root ->right);  
 } 
 
 
@@ -297,7 +292,7 @@ void RBTree::inorder()     {  inorderHelper(root);}
 void RBTree::levelOrder()  {  levelOrderHelper(root); } 
 int RBTree::heightOfTree(){  heightOfTreeHelper(root);}
 void RBTree::sumOfNodesAtMaxDepth(){
-	sumOfNodesAtMaxDepthHelper(root, 0);
+	sumOfNodesAtMaxDepthHelper(root);
 }
 
 
@@ -313,52 +308,53 @@ int main(){
     int typeNum;
     int commandNum=0, newNodeData;
     RBTree tree; 
+//    
+//    return 0;
+    
     string menuChoice="\n1)Вставка элемента\n2)Симметричный обход\n3)Обход в ширину\n4)Найти сумму значений листьев\n5)Найти высоту дерева\n6)Выход\n";
     cout<<"Введите 10 элементов: ";
     for (int i=0; i<10;i++){
+    	cout<<"\n"<<i+1<<") ";
     	cin>>newNodeData;
 		tree.insert(newNodeData);
 	}
 	cout<<endl;
 	while(true){
-		cout<<menuChoice;
     	commandNum=0;
-    	cin>>commandNum;
-    			while(commandNum !=6){
-    				cout<<menuChoice;
-					cin>>commandNum;
-						switch(commandNum){
-							case(1):
-								cout<<"Выбрана вставка элемента\nВведите элемент: ";
-								cin>>newNodeData;
-								tree.insert(newNodeData);
-								break;
-							case(2):
-								 cout << "Выбран симметричный обход\n"; 
-    							tree.inorder(); 
-								break;
-							case(3):
-								cout << "\nВыбран обход по ширине\n"; 
-   								tree.levelOrder();
-								break;
-							case(4):
-								sum = 0;
-								tree.sumOfNodesAtMaxDepth();
-								cout<<"Сумма элементов на листьях "<<sum<<endl;
-								break;
-							case(5):
-								cout << "\nВыбран вывод высоты древа\n"; 
-								cout<<"Высота древа: "<<tree.heightOfTree()+1<<endl;
-								break;
-							case(6):
-							return 0;	
-								break;
-							default:
-								cout<<"Некорректные данные";
-								break;
-					}
-				}
+    	while(commandNum !=6){
+    		cout<<menuChoice;
+			cin>>commandNum;
+			switch(commandNum){
+			case(1):
+				cout<<"Выбрана вставка элемента\nВведите элемент: ";
+				cin>>newNodeData;
+				tree.insert(newNodeData);
 				break;
+			case(2):
+				 cout << "Выбран симметричный обход\n"; 
+    			tree.inorder(); 
+				break;
+			case(3):
+				cout << "\nВыбран обход по ширине\n"; 
+   				tree.levelOrder();
+				break;
+			case(4):
+				sum = 0;
+				tree.sumOfNodesAtMaxDepth();
+				cout<<"Сумма элементов на листьях "<<sum<<endl;
+				break;
+			case(5):
+				cout << "\nВыбран вывод высоты древа\n"; 
+				cout<<"Высота древа: "<<tree.heightOfTree()+1<<endl;
+				break;
+			case(6):
+				return 0;	
+				break;
+			default:
+				cout<<"Некорректные данные";
+				break;
+			}
+		}
 	}
 }
 
