@@ -53,7 +53,11 @@ void inorderHelper(Node *root)
         return; 
   
     inorderHelper(root->left); 
+<<<<<<< Updated upstream:2nd_sem/RBTree.cpp
     cout << root->data << " ("<< (root->color==true? "Black":"Red") << ")  "; 
+=======
+    cout << root->data << "("<<root->color<<") "; 
+>>>>>>> Stashed changes:2nd_sem/ПР2.cpp
     inorderHelper(root->right); 
 } 
 
@@ -93,7 +97,11 @@ void levelOrderHelper(Node *root)
     while (!q.empty()) 
     { 
         Node *temp = q.front(); 
+<<<<<<< Updated upstream:2nd_sem/RBTree.cpp
         cout << temp->data << " ("<< (temp->color==true? "Black":"Red") << ")  "; 
+=======
+        cout << temp->data << "("<<root->color<<") "; 
+>>>>>>> Stashed changes:2nd_sem/ПР2.cpp
         q.pop(); 
   
         if (temp->left != NULL) 
@@ -318,7 +326,6 @@ int main(){
     	cin>>newNodeData;
 		tree.insert(newNodeData);
 	}
-	cout<<endl;
 	while(true){
     	commandNum=0;
     	while(commandNum !=6){
