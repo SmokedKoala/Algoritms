@@ -1,64 +1,93 @@
-#include <bits/stdc++.h>
+#include <iomanip>
+#include <list>
 #include <iostream>
 #include <Windows.h>
-#include <string>
-#include <exception>
-#include <stdlib.h>
-using namespace std; 
+using namespace std;
 
-class Hash 
-{ 
-	int BUCKET; // No. корзины 
+const int HASH_TABLE_LENGTH = 10;
 
-	// Указатель на список с корзинами 
-	list<int> *table; 
-public: 
+// Структура элемента
+struct Node {
+public:
+    int number;
+    string name;
+    string adress;
+    Facility(int number, string name, string adress) {
+        this->number = number;
+        this->name = name;
+        this->adress = adress;
+    }
+};
 
-	// конструктор 
-	Hash(int b) 
-	{ 
-		this->BUCKET = b; 
-		table = new list<int>[BUCKET]; 
-	}  
+// Класс Хеш-таблицы
+class Hash
+{
+    int BUCKET_NUM;    // Число "корзин" (указателей на списки в хеш-таблице)
+    list<Node*>* table; // Указатель на массив с корзинами (хеш-таблицу)
+public:
+	// Конструктор
+    Hash(int b)
+	{
+    	this->BUCKET_NUM = b;
+    	table = new list<Facility*>[BUCKET_NUM];
+	};  
+	// Функция вставки элемента
+    int insert(int num, string name, string adress); 
+     // Функция удаления элемента
+    bool erase(int num);
+    // Функция поиска элемента
+    Node* find(int num); 
+    int hashFunction(int x); // Хеш-функция
+    void display(); // Функция вывода содержимого хеш-таблицы
+};
 
-	// добавление ключа в хеш таблицу 
-	void insertItem(int key) 
-	{ 
-		int index = hashFunction(key); 
-		table[index].push_back(key); 
-	}  
 
-	// удаление ключа из хеш таблицы 
-	void deleteItem(int key) 
-	{ 
-		// получение хеш индекса ключа 
-		int index = hashFunction(key); 
-		// найти ключ в i-том списке 
-		list <int> :: iterator i; 
-		for (i = table[index].begin(); i != table[index].end(); i++) { 
-			if (*i == key) 
-				break; 
-		} 
-		// если ключ найден в хеш таблице, удалить его
-		if (i != table[index].end()) 
-		table[index].erase(i); 
-	}  
+int Hash::hashFunction(int x) {
+    return (x % BUCKET_NUM);
+}
 
-	// хеш функция для определения ключа для данных
-	int hashFunction(int x) { 
-		return (x % BUCKET); 
-	} 
-	
-	// функция для отображения хеш таблицы 
-	void displayHash() { 
-		for (int i = 0; i < BUCKET; i++) { 
-			cout << i; 
-			for (auto x : table[i]) 
-			cout << " --> " << x; 
-			cout << endl; 
-		}		 
-	} 
-}; 
+int Hash::insert(int num, string name, string fou)
+{
+    int index = hashFunction(num);
+    Facility* new_f = new Facility(num, name, fou);
+    table[index].push_back(new_f);
+    return index;
+}
+
+bool Hash::erase(int num)
+{
+    int index = hashFunction(num);
+
+    for (Facility* f : table[index]) {
+        if (f->number == num) {
+            table[index].remove(f);
+            return true;
+        }
+    }
+    return false;
+}
+
+Facility* Hash::find(int num){
+    int index = hashFunction(num);
+
+    for (Facility* f : table[index]) {
+        if (f->number == num) {
+            return f;
+        }
+    }
+    return NULL;
+}
+ 
+void Hash::display() {
+    for (int i = 0; i < BUCKET_NUM; i++) {
+        cout << i;
+        for (Facility* x : table[i])
+            cout << " --> " << x->number;
+        cout << endl;
+    }
+}
+
+
 
 
 int main() 
@@ -70,13 +99,14 @@ int main()
     cout << "Практическая работа №3 Хеширование - прямой доступ к данным. Азаров Константин, ИКБО-02-19"
          << endl;
     string menuChoice="\n1)Вставка элемента\n2)Удаление элемента\n3)Поиск элемента\n4)Вывод данных\n5)Выход\n";
-    int newNodeData = 0, commandNum=0;
+    int commandNum=0;
+    string newNodeData = "";
 	// array that contains keys to be mapped 
-	int a[] = {15, 11, 27, 8, 12}; 
-	int n = sizeof(a)/sizeof(a[0]); 
+//	int a[] = {15, 11, 27, 8, 12}; 
+//	int n = sizeof(a)/sizeof(a[0]); 
 
 // insert the keys into the hash table 
-	Hash h(7); // 7 is count of buckets in 
+	Hash h(0); // 7 is count of buckets in 
 			// hash table 
 //for (int i = 0; i < n; i++) 
 //	h.insertItem(a[i]); 
