@@ -12,7 +12,7 @@ public:
     int number;
     string name;
     string adress;
-    Facility(int number, string name, string adress) {
+    Node(int number, string name, string adress) {
         this->number = number;
         this->name = name;
         this->adress = adress;
@@ -25,92 +25,81 @@ class Hash
     int BUCKET_NUM;    // Число "корзин" (указателей на списки в хеш-таблице)
     list<Node*>* table; // Указатель на массив с корзинами (хеш-таблицу)
 public:
-	// Конструктор
+	
+   	// Конструктор
     Hash(int b)
 	{
     	this->BUCKET_NUM = b;
-    	table = new list<Facility*>[BUCKET_NUM];
-	};  
-	// Функция вставки элемента
-    int insert(int num, string name, string adress); 
-     // Функция удаления элемента
-    bool erase(int num);
+    	table = new list<Node*>[BUCKET_NUM];
+	}; 
+	
+	// Функция вставки элемента 
+    int insert(int num, string name, string adress)
+	{
+    	int index = hashFunction(num);
+    	Node* new_f = new Node(num, name, adress);
+    	table[index].push_back(new_f);
+    	return index;
+	}; 
+	
+    // Функция удаления элемента
+    void erase(int num)
+	{
+    	int index = hashFunction(num);
+    	for (Node* f : table[index]) {
+    	    if (f->number == num) {
+    	    	cout<<"Элемент "<<f->name<<" удалён"<<endl;
+    	        table[index].remove(f);
+   	         return;
+    	    }
+    	}
+    	cout<<"Элемент не найден";
+	}; 
+	
     // Функция поиска элемента
-    Node* find(int num); 
-    int hashFunction(int x); // Хеш-функция
-    void display(); // Функция вывода содержимого хеш-таблицы
+    void find(int num){
+    	int index = hashFunction(num);
+    	for (Node* f : table[index]) {
+        	if (f->number == num) {
+        	    cout<<"номер "<<f->number<<" Имя "<<f->name<<" по адресу "<<f->adress<<endl;
+        	    return;
+        	}
+    	}
+    	cout<<"не существует элемента"<<endl;
+	}; 
+	
+    // Хеш-функция
+    int hashFunction(int x) {
+    	return (x % BUCKET_NUM);
+	}; 
+	
+	// Функция вывода содержимого хеш-таблицы
+    void display() {
+    	for (int i = 0; i < BUCKET_NUM; i++) {
+        	cout << i;
+    	    for (Node* x : table[i])
+        	    cout << " --> " << x->number<<" "<<x->name<<" "<<x->adress;
+    	    cout << endl;
+    	}
+	}; 
 };
 
 
-int Hash::hashFunction(int x) {
-    return (x % BUCKET_NUM);
-}
 
-int Hash::insert(int num, string name, string fou)
-{
-    int index = hashFunction(num);
-    Facility* new_f = new Facility(num, name, fou);
-    table[index].push_back(new_f);
-    return index;
-}
-
-bool Hash::erase(int num)
-{
-    int index = hashFunction(num);
-
-    for (Facility* f : table[index]) {
-        if (f->number == num) {
-            table[index].remove(f);
-            return true;
-        }
-    }
-    return false;
-}
-
-Facility* Hash::find(int num){
-    int index = hashFunction(num);
-
-    for (Facility* f : table[index]) {
-        if (f->number == num) {
-            return f;
-        }
-    }
-    return NULL;
-}
  
-void Hash::display() {
-    for (int i = 0; i < BUCKET_NUM; i++) {
-        cout << i;
-        for (Facility* x : table[i])
-            cout << " --> " << x->number;
-        cout << endl;
-    }
-}
 
-
-
-
-int main() 
-{ 
+int main(){
 	setlocale(LC_ALL, "Russian");
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    
-    cout << "Практическая работа №3 Хеширование - прямой доступ к данным. Азаров Константин, ИКБО-02-19"
+    Hash hash(HASH_TABLE_LENGTH);
+    cout << "Практическая работа №3 Хеширование – прямой доступ к данным. Азаров Константин, ИКБО-02-19"
          << endl;
-    string menuChoice="\n1)Вставка элемента\n2)Удаление элемента\n3)Поиск элемента\n4)Вывод данных\n5)Выход\n";
-    int commandNum=0;
-    string newNodeData = "";
-	// array that contains keys to be mapped 
-//	int a[] = {15, 11, 27, 8, 12}; 
-//	int n = sizeof(a)/sizeof(a[0]); 
-
-// insert the keys into the hash table 
-	Hash h(0); // 7 is count of buckets in 
-			// hash table 
-//for (int i = 0; i < n; i++) 
-//	h.insertItem(a[i]); 
-
+    int typeNum;
+    int commandNum=0, newNodeNum=0;
+    string newNodeName="", newNodeAdress;
+    string menuChoice="\n1)Вставка элемента\n2)Удаление Элемента\n3)Поиск элемента\n4)Вывод значений\n5)Выход\n";
+    
 	while(true){
     	commandNum=0;
     	while(commandNum !=6){
@@ -118,22 +107,24 @@ int main()
 			cin>>commandNum;
 			switch(commandNum){
 			case(1):
-				cout<<"Выбрана вставка элемента\nВведите элемент: ";
-				cin>>newNodeData;
-				h.insertItem(newNodeData);
+				cout<<"Выбрана вставка элемента\nВведите данные элемента: ";
+				cin>>newNodeNum>>newNodeName>>newNodeAdress;
+				hash.insert(newNodeNum,newNodeName,newNodeAdress);
 				break;
 			case(2):
-				cout << "Выбрано удаление элемента\nВведите элемент: "; 
-				cin>>newNodeData;
-				h.deleteItem(newNodeData);
+				cout<<"Выбрано удаление элемента\nВведите номер элемента: "; 
+				cin>>newNodeNum;
+				hash.erase(newNodeNum);
 				break;
 			case(3):
-				cout << "\nВыбран поиск элемента\n"; 
-
+				cout<<"Выбран поиск элемента\nВведите номер элемента: "; 
+				cin>>newNodeNum;
+				cout<<"Найденный элемент: "<<endl;
+				hash.find(newNodeNum);
 				break;
 			case(4):
-				cout << "\nВыбран вывод данных\n"; 
-				h.displayHash(); 
+				cout<<"Выбран вывод всех значений"<<endl; 
+				hash.display();
 				break;
 			case(5):
 				return 0;	
@@ -144,5 +135,4 @@ int main()
 			}
 		}
 	}
-} 
-
+}
