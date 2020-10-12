@@ -14,34 +14,32 @@ struct Node {
 
 void convert_to_binary()
 {
-	string line;
+	string line, main_line;
 	ifstream in("in.txt");
+	ofstream out("out.bin", ios::binary); 
 	if (in.is_open())
     {
         while (getline(in, line))
         {
             cout << line << endl;
-            for( char c : line )
-    		{
-        		bitset<8> bs(c);
-        		cout << bs;
-    		}
-   		 cout << endl;
+            main_line+='\n'+line;
         }
+    out.write((char*)&main_line, sizeof(line));    
     }
     in.close(); 
-//   	string s= "Welcome to black list, bitch";
-//    
-//    for( char c : s )
-//    {
-//        bitset<8> bs(c);
-//        cout << bs;
-//    }
-//    cout << endl;
+    out.close();
+
 }
 
 void show_binary()
 {
+	string line;
+	ifstream in("out.bin", ios::binary);
+	
+		in.read((char*)&line, sizeof(line));
+		cout<<line;
+	
+	in.close();
 	
 }
 
