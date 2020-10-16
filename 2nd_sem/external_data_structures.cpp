@@ -41,16 +41,16 @@ void show_binary()
 }
 
 void create_txt(){
-	cout<<"Введите названия продуктов\nПри завершении ввода напишите None\n";
+	cout<<"Введите названия продуктов\nПри завершении ввода напишите 'Конец'\n";
 	string nameData, line;
 	ifstream out("binary_file.bin", ios::binary); 
 	out.read((char*)&line, sizeof(line));
 	out.close();
 	cin>> nameData;
-	while (nameData!="None"){
+	while (nameData!="Конец"){
 	int pos = line.find(nameData);
 	if (pos == -1)
-        cout << "not finded" << endl;
+        cout << "данная запись не найдена: "<<nameData << endl;
     else
         cout << "ch " << line[pos]  << endl;	
     cin>> nameData;
