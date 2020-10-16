@@ -14,30 +14,48 @@ struct Node {
 
 void convert_to_binary()
 {
-	string line, main_line;
-	ifstream in("in.txt");
-	ofstream out("out.bin", ios::binary); 
-	if (in.is_open())
+	string nameData="", line="";
+	char snum[5];
+	int numData=0, priceData=0;
+	ofstream in("binary_file.bin", ios::binary); 
+	cin>> numData;
+    while (numData!=-1)
     {
-        while (getline(in, line))
-        {
-            cout << line << endl;
-            main_line+='\n'+line;
-        }
-    out.write((char*)&main_line, sizeof(line));    
+    	cin>>nameData>>priceData;
+        line+=string(itoa(numData, snum,6))+" "+nameData+" "+string(itoa(priceData,snum,10))+"\n";
+        cin>> numData;
     }
-    in.close(); 
-    out.close();
+    in.write((char*)&line, sizeof(line));   
+    in.close();
 
 }
 
 void show_binary()
 {
 	string line;
-	ifstream in("out.bin", ios::binary);
+	ifstream out("binary_file.bin", ios::binary);
+	out.read((char*)&line, sizeof(line));
+	cout<<line;
+	out.close();
 	
-		in.read((char*)&line, sizeof(line));
-		cout<<line;
+}
+
+void create_txt(){
+	cout<<"Введите названия продуктов\nПри завершении ввода напишите None\n";
+	string nameData, line;
+	ifstream out("binary_file.bin", ios::binary); 
+	out.read((char*)&line, sizeof(line));
+	out.close();
+	cin>> nameData;
+	while (nameData!="None"){
+	int pos = line.find(nameData);
+	if (pos == -1)
+        cout << "not finded" << endl;
+    else
+        cout << "ch " << line[pos]  << endl;	
+    cin>> nameData;
+	}
+	ofstream in("txt_file.txt", ios::binary);
 	
 	in.close();
 	
@@ -60,15 +78,16 @@ int main(){
 			cin>>commandNum;
 			switch(commandNum){
 			case(1):
-				cout<<"Выбрано преобразование текстового файла в двоичный\n";
+				cout<<"Выбрано преобразование текстовых данны в двоичный файл\nПри окончании ввода структур напишите -1\n";
 				convert_to_binary();
 				break;
 			case(2):
-				 cout << "Выбрано отображение записей двоичного файла\n"; 
-				 show_binary();
+				cout << "Выбрано отображение записей двоичного файла\n"; 
+				show_binary();
 				break;
 			case(3):
 				cout << "Выбрано формирование текстового файла из записей не по ключу\n"; 
+				create_txt();
 				break;
 			case(4):
 				cout << "Выбран вывод неключевого элемента по ключу\n";
