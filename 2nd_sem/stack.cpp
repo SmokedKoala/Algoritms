@@ -27,7 +27,16 @@ void push(struct Node** head_ref, char new_data){
     new_node->data = new_data; 
     new_node->next = (*head_ref); 
     (*head_ref) = new_node; 
+}
+
+
+void print_stack(Node* head){
+	cout<<"Элементы в стеке\n";
+	for(Node* temp = head; temp != NULL; temp = temp->next)
+		cout<<temp->data;
+	cout<<endl;
 } 
+
 
 
 int main(){
@@ -36,7 +45,7 @@ int main(){
     SetConsoleOutputCP(1251);
 	int balance_counter1=0,balance_counter2=0 ;
 	Node* head = NULL;
-	cout<<"Практическая работа №4. Стек. Азаров Константин, ИКБО-02-19"<<endl;
+	cout<<"Практическая работа №3. Стек. Азаров Константин, ИКБО-02-19"<<endl;
 	string ch, choice;
 	while (true){
 		cout<<"Введите строку для анализа: ";
@@ -50,6 +59,7 @@ int main(){
 					break;
 			}			
 		} 
+		print_stack(head);
     	cout<<"Найденные скобки\n";
     	for (Node* temp = head; temp != NULL; temp = temp->next) {
     		if(temp->data=='('){

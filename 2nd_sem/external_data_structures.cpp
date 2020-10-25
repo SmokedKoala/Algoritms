@@ -14,6 +14,26 @@ struct Node {
 	int price;
 };
 
+<<<<<<< Updated upstream
+=======
+void convert_to_binary()
+{
+	string nameData="", line="";
+	char snum[5];
+	int numData=0, priceData=0;
+	ofstream in("binary_file.bin", ios::binary); 
+	cin>> numData;
+    while (numData!=-1)
+    {
+//    	line="";
+    	cin>>nameData>>priceData;
+//        line+=string(itoa(numData, snum,10))+" "+nameData+" "+string(itoa(priceData,snum,10))+"\n";
+//        in.write((char*)&line, sizeof(line)); 
+		in << numData<<" "<< nameData<<" "<<priceData<<endl;
+        cin>> numData;
+    }
+    in.close();
+>>>>>>> Stashed changes
 
 void convert_to_binary(){
 	cout<<"Введите количество элементов для записи ";
@@ -41,6 +61,7 @@ void show_binary(){
 }
 
 void create_txt(){
+<<<<<<< Updated upstream
 	string line;
 	char name[32];
 	cout<< "Введите названия продуктов, при завершении ввода введите 'Конец'"<<endl;
@@ -78,6 +99,34 @@ void find_node(int key){
 	ifstream output("binary_file.txt", ios::binary);
 	output.read((char*)node_reader, sizeof(node_reader));
 	output.close();
+=======
+	cout<<"Введите названия продуктов\nПри завершении ввода напишите 'Конец'\n";
+	string nameData, line;
+	cin>> nameData;
+	while (nameData!="Конец"){
+		ifstream out("binary_file.bin", ios::binary); 
+		if (out.is_open())
+    	{
+        	while (out.read((char*)&line, sizeof(line)))
+        	{
+            	int pos = line.find(nameData);
+            	if (pos == -1)
+        			cout << "данная запись не найдена: "<<nameData << endl;
+    			else{
+    				cout << line << endl;
+    				break;
+				}
+        			
+			}
+		}
+		out.close();
+    	cin>> nameData;
+	}
+	
+//	ofstream in("txt_file.txt", ios::binary);
+//	
+//	in.close();
+>>>>>>> Stashed changes
 	
 	for (int i =0; i<size; i++){
 		if (key==node_reader[i].num){
