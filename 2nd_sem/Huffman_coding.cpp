@@ -5,12 +5,11 @@
 #include <string>
 using namespace std; 
 
-vector <char> arr_vec;
-vector<int> freq_vec;
 
 struct Element {
 	char data;
 	string num;
+	int freq;
 };
 vector <Element> elements_array;
 
@@ -131,20 +130,20 @@ int isLeaf(struct MinHeapNode* root) {
 } 
 
 // Создает минимальную кучу емкости, равную размеру, и вставляет все символы из data[] в минимальную кучу. Изначально размер минимальной кучи равен емкости
-struct MinHeap* createAndBuildMinHeap(char data[], int freq[], int size) { 
+struct MinHeap* createAndBuildMinHeap(vector <Element> elements_array, int size) { 
 	struct MinHeap* minHeap = createMinHeap(size); 
 	for (int i = 0; i < size; ++i) 
-		minHeap->array[i] = newNode(data[i], freq[i]); 
+		minHeap->array[i] = newNode(elements_array[i].data, elements_array[i].freq); 
 	minHeap->size = size; 
 	buildMinHeap(minHeap); 
 	return minHeap; 
 } 
 
 // основная функция для построения дерева Хаффмана
-struct MinHeapNode* buildHuffmanTree(char data[], int freq[], int size) { 
+struct MinHeapNode* buildHuffmanTree(vector <Element> elements_array, int size) { 
 	struct MinHeapNode *left, *right, *top; 
 	// Шаг 1: Создайте минимальную кучу емкости, равную размеру. Изначально существуют узлы, равные по размеру.
-	struct MinHeap* minHeap = createAndBuildMinHeap(data, freq, size); 
+	struct MinHeap* minHeap = createAndBuildMinHeap(elements_array, size); 
 	// Повторяйте, пока размер кучи не станет 1 
 	while (!isSizeOne(minHeap)) { 
 		// Шаг 2: извлеките два элемента с минимальной частотой появления из минимальной кучи 
@@ -176,32 +175,37 @@ void printCodes(struct MinHeapNode* root, int arr[], int top) {
 	} 
 	// Если это листовой узел, то он содержит один из входных символов, выведите символ и его код из arr[]
 	if (isLeaf(root)) { 
-		Element temp;
-		temp.data = root->data;
+//		Element temp;
+//		temp.data = root->data;
 		cout<< root->data <<": "; 
-		temp.num=printArr(arr, top); 
-		elements_array.push_back(temp);
+		for (int i =0; i< elements_array.size();i++)
+			if (elements_array[i].data==root->data)
+				elements_array[i].num =printArr(arr, top); 	
+//		elements_array.push_back(temp);
 	} 
 } 
 
 // Основная функция, которая строит дерево Хаффмана и печатает коды, проходя по построенному дереву Хаффмана
-void HuffmanCodes(char data[], int freq[], int size) { 
+void HuffmanCodes(vector <Element> elements_array , int size) { 
 	// Конструктор дерева Хаффмана
-	struct MinHeapNode* root = buildHuffmanTree(data, freq, size); 
+	struct MinHeapNode* root = buildHuffmanTree(elements_array, size); 
 	// вывести коды Хаффмана, используя дерево Хаффмана
 	int arr[MAX_TREE_HT], top = 0; 
 	printCodes(root, arr, top); 
 } 
 
 void calc_char_number(char value){
-	for (int i=0;i<arr_vec.size();i++){
-		if(arr_vec[i]==value){
-			freq_vec[i]=freq_vec[i]+1;
+	for (int i=0;i<elements_array.size();i++){
+		if(elements_array[i].data==value){
+			elements_array[i].freq=elements_array[i].freq+1;
 			return;
 		}
 	}
-	arr_vec.push_back(value);
-	freq_vec.push_back(1);		
+	Element temp;
+	temp.data=value;
+	temp.freq=1;
+	elements_array.push_back(temp);
+//	freq_vec.push_back(1);		
 }
 	
  
@@ -213,8 +217,10 @@ int main()
 	cout<<"Практическая работа №10. код Хаффмана. Азаров Константин, ИКБО-02-19"<<endl;
 	string ch;
 	string first_str;
-	arr_vec.push_back(' ');	
-	freq_vec.push_back(2);
+	Element first;
+	first.data=' ';
+	first.freq =2;
+	elements_array.push_back(first);
 	cout<<"Введите строку"<<endl;
 	while (cin>>ch)
 		{
@@ -227,18 +233,10 @@ int main()
 					break;
 			}			
 		} 
-	char arr[arr_vec.size()];
-	int freq[freq_vec.size()];
-	for (int i =0;i<arr_vec.size();i++){
-		arr[i]=arr_vec[i];
-		freq[i]=freq_vec[i];
-	}
-//	cout<<first_str<<endl;
+//	for (int i =0; i< elements_array.size(); i++)
+//		cout<<elements_array[i].data<<" "<<elements_array[i].freq<<endl;
 
-	HuffmanCodes(arr, freq, arr_vec.size()); 
-//	for (int i=0; i<elements_array.size();i++){
-//		cout<<elements_array[i].data<<" "<< elements_array[i].num<<endl;
-//	}
+	HuffmanCodes(elements_array, elements_array.size()); 
 
 	return 0; 
 } 
