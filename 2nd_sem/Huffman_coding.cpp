@@ -237,7 +237,13 @@ int main()
 //		cout<<elements_array[i].data<<" "<<elements_array[i].freq<<endl;
 
 	HuffmanCodes(elements_array, elements_array.size()); 
-
+	cout<<"Полученная строка: ";
+	for (int i = 0; i< first_str.size();i++){
+		for (int j=0;j<elements_array.size();j++){
+			if (first_str[i]==elements_array[j].data)
+				cout<<elements_array[j].num;
+		}
+	}
 	return 0; 
 } 
 
