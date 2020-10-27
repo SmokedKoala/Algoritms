@@ -209,18 +209,11 @@ void calc_char_number(char value){
 }
 	
  
-int main() 
-{ 
-	setlocale(LC_ALL, "Russian");
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
-	cout<<"Практическая работа №10. код Хаффмана. Азаров Константин, ИКБО-02-19"<<endl;
+void app(){
+	string choice;
+	
 	string ch;
 	string first_str;
-	Element first;
-	first.data=' ';
-	first.freq =2;
-	elements_array.push_back(first);
 	cout<<"Введите строку"<<endl;
 	while (cin>>ch)
 		{
@@ -231,11 +224,9 @@ int main()
 			{
 				if (cin.get()=='\n')
 					break;
-			}			
+			}
+			calc_char_number(' ');			
 		} 
-//	for (int i =0; i< elements_array.size(); i++)
-//		cout<<elements_array[i].data<<" "<<elements_array[i].freq<<endl;
-
 	HuffmanCodes(elements_array, elements_array.size()); 
 	cout<<"Полученная строка: ";
 	for (int i = 0; i< first_str.size();i++){
@@ -243,7 +234,28 @@ int main()
 			if (first_str[i]==elements_array[j].data)
 				cout<<elements_array[j].num;
 		}
+	}	
+	elements_array.clear();	
+	cout<<endl<<"Повторить ввод? (да/нет): ";
+	cin>>choice;
+	if (choice == "да")
+		app();
+	if (choice =="нет"){
+		cout<<"Вы уверены? (завершить/нет)";
+		cin>>choice;
+		if (choice == "нет")
+			app();
+		if (choice =="завершить")
+			return;
 	}
+}
+int main() 
+{ 
+	setlocale(LC_ALL, "Russian");
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+	cout<<"Практическая работа №10. код Хаффмана. Азаров Константин, ИКБО-02-19"<<endl;
+	app();
 	return 0; 
 } 
 
