@@ -1,33 +1,28 @@
-// C++ program for Kruskal's algorithm
-// to find Minimum Spanning Tree of a
-// given connected, undirected and weighted
-// graph
 #include <bits/stdc++.h>
+#include <Windows.h>
+#include <vector>
+#include <string>
 using namespace std;
 
-// a structure to represent a 
-// weighted edge in graph
+//структура для представления взвешенного ребра в графе
 class Edge {
 public:
 	int src, dest, weight;
 };
 
-// a structure to represent a connected, 
-// undirected and weighted graph
+// структура для представления Связного, неориентированного и взвешенного графа
 class Graph {
 public:
 	
-	// V-> Number of vertices, E-> Number of edges
+	// V-> Число вершин, E-> Количество ребер
 	int V, E;
 
-	// graph is represented as an array of edges.
-	// Since the graph is undirected, the edge
-	// from src to dest is also edge from dest
-	// to src. Both are counted as 1 edge here.
+	// граф представлен в виде массива ребер.
+	// Поскольку граф неориентированный, ребро из src в dest также ребро из dest в src. Оба они считаются здесь 1 ребром.
 	Edge* edge;
 };
 
-// Creates a graph with V vertices and E edges
+// Создает Граф с V вершинами и E ребрами
 Graph* createGraph(int V, int E)
 {
 	Graph* graph = new Graph;
@@ -39,107 +34,94 @@ Graph* createGraph(int V, int E)
 	return graph;
 }
 
-// A structure to represent a subset for union-find
+// Структура для представления подмножества для найденной связи
 class subset {
 public:
 	int parent;
 	int rank;
 };
 
-// A utility function to find set of an element i
-// (uses path compression technique)
+// служебная функция для поиска множества элемента i (использует метод сжатия пути)
 int find(subset subsets[], int i)
 {
-	// find root and make root as parent of i
-	// (path compression)
+	// найти корень и сделать корень родителем i (сжатие пути )
 	if (subsets[i].parent != i)
-		subsets[i].parent
-			= find(subsets, subsets[i].parent);
+		subsets[i].parent= find(subsets, subsets[i].parent);
 
 	return subsets[i].parent;
 }
 
-// A function that does union of two sets of x and y
-// (uses union by rank)
+// Функция, которая выполняет объединение двух наборов x и y (использует объединение по рангу)
 void Union(subset subsets[], int x, int y)
 {
 	int xroot = find(subsets, x);
 	int yroot = find(subsets, y);
 
-	// Attach smaller rank tree under root of high
-	// rank tree (Union by Rank)
+	// Прикрепите меньшее ранговое дерево под корнем дерева высокого ранга (объединение по рангу)
 	if (subsets[xroot].rank < subsets[yroot].rank)
 		subsets[xroot].parent = yroot;
 	else if (subsets[xroot].rank > subsets[yroot].rank)
 		subsets[yroot].parent = xroot;
 
-	// If ranks are same, then make one as root and
-	// increment its rank by one
+	// Если ранги одинаковы, то сделайте один корнем и увеличьте его ранг на единицу
 	else {
 		subsets[yroot].parent = xroot;
 		subsets[xroot].rank++;
 	}
 }
 
-// Compare two edges according to their weights.
-// Used in qsort() for sorting an array of edges
-int myComp(const void* a, const void* b)
-{
-	Edge* a1 = (Edge*)a;
-	Edge* b1 = (Edge*)b;
-	return a1->weight > b1->weight;
-}
 
-// The main function to construct MST using Kruskal's
-// algorithm
+// Основная функция построения Минимальное Связующее Дерево с использованием алгоритма Крускала
 void KruskalMST(Graph* graph)
 {
 	int V = graph->V;
-	Edge result[V]; // Tnis will store the resultant MST
-	int e = 0; // An index variable, used for result[]
-	int i = 0; // An index variable, used for sorted edges
+	Edge result[V]; // Это позволит сохранить полученный МСД
+	int e = 0; // Индексная переменная, используемая для получения результата[]
+	int i = 0; // Индексная переменная, используемая для сортированных ребер
 
-	// Step 1: Sort all the edges in non-decreasing
-	// order of their weight. If we are not allowed to
-	// change the given graph, we can create a copy of
-	// array of edges
-	qsort(graph->edge, graph->E, sizeof(graph->edge[0]),
-		myComp);
+	// Шаг 1: отсортируйте все ребра в неубывающем порядке их веса. Если нам этого не позволят
+	// изменив данный граф, мы можем создать копию массива ребер
+	
+	for (int i = 0; i <graph->E-1; i++){
+		for (int j =0; j<graph->E-1-i; j++){
+			if (graph->edge[j].weight>graph->edge[j+1].weight){
+				Edge temp = graph->edge[j];
+				graph->edge[j]=graph->edge[j+1];
+				graph->edge[j+1]=temp;
+			}
+		}
+	}
 
-	// Allocate memory for creating V ssubsets
+	// Выделить память для создания подмножеств V
 	subset* subsets = new subset[(V * sizeof(subset))];
 
-	// Create V subsets with single elements
+	// Создать V подгруппы с отдельными элементами
 	for (int v = 0; v < V; ++v) 
 	{
 		subsets[v].parent = v;
 		subsets[v].rank = 0;
 	}
 
-	// Number of edges to be taken is equal to V-1
+	// Количество ребер, которые нужно взять, равно V-1
 	while (e < V - 1 && i < graph->E) 
 	{
-		// Step 2: Pick the smallest edge. And increment
-		// the index for next iteration
+		// Шаг 2: Выберите самый маленькое ребро. И увеличьте индекс для следующей итерации
 		Edge next_edge = graph->edge[i++];
 
 		int x = find(subsets, next_edge.src);
 		int y = find(subsets, next_edge.dest);
 
-		// If including this edge does't cause cycle,
-		// include it in result and increment the index
-		// of result for next edge
+		// Если включение этого ребра не вызывает цикла, включите его в результат и увеличьте индекс
+		// результата для следующего ребра
 		if (x != y) {
 			result[e++] = next_edge;
 			Union(subsets, x, y);
 		}
-		// Else discard the next_edge
+		// В противном случае отбросьте next_edge
 	}
 
-	// print the contents of result[] to display the
-	// built MST
-	cout << "Following are the edges in the constructed "
-			"MST\n";
+	//выведите содержимое result[] для отображения построенного МСД
+	cout << "Ниже приведены ребра в построенном МОД\n";
 	int minimumCost = 0;
 	for (i = 0; i < e; ++i) 
 	{
@@ -147,47 +129,58 @@ void KruskalMST(Graph* graph)
 			<< " == " << result[i].weight << endl;
 		minimumCost = minimumCost + result[i].weight;
 	}
-	// return;
-	cout << "Minimum Cost Spanning Tree: " << minimumCost
+	cout << "Вес минимального остовного дерева: " << minimumCost
 		<< endl;
 }
 
-// Driver code
+struct Element{
+	int first_V;
+	int second_V;
+	int weight;
+};
+
 int main()
 {
-
-	int V = 4; // Number of vertices in graph
-	int E = 5; // Number of edges in graph
-	Graph* graph = createGraph(V, E);
-
-	// add edge 0-1
-	graph->edge[0].src = 0;
-	graph->edge[0].dest = 1;
-	graph->edge[0].weight = 10;
-
-	// add edge 0-2
-	graph->edge[1].src = 0;
-	graph->edge[1].dest = 2;
-	graph->edge[1].weight = 6;
-
-	// add edge 0-3
-	graph->edge[2].src = 0;
-	graph->edge[2].dest = 3;
-	graph->edge[2].weight = 5;
-
-	// add edge 1-3
-	graph->edge[3].src = 1;
-	graph->edge[3].dest = 3;
-	graph->edge[3].weight = 15;
-
-	// add edge 2-3
-	graph->edge[4].src = 2;
-	graph->edge[4].dest = 3;
-	graph->edge[4].weight = 4;
-
-
-	// Function call
-	KruskalMST(graph);
+	setlocale(LC_ALL, "Russian");
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+	cout<<"Практическая работа №11. алгоритм Краскала построения остовного дерева графа. Азаров Константин, ИКБО-02-19"<<endl;
+	
+	int V=0 ; // Количество вершин в графе
+	int E=0 ; // Количество ребер в графе
+	int first_V;
+	int second_V;
+	int weight;
+	string choice="да";
+	vector <Element> edges_vector;
+	while(choice!="нет"){
+		cout<<"Введите количество вершин в графе (счёт начинается с 0)"<<endl;
+		cin>>V;
+		cout<<"Вводите ребра графа в формате: первая вершина, вторая вершина, вес ребра"<<endl<<"При завершении ввода введите -1"<<endl;
+		cin>>first_V;
+		while (first_V!=-1){
+			cin>>second_V;
+			cin>>weight;
+			Element temp;
+			temp.first_V=first_V;
+			temp.second_V=second_V;
+			temp.weight=weight;
+			edges_vector.push_back(temp);
+			cin>>first_V;
+		}
+		E=edges_vector.size();
+		Graph* graph = createGraph(V, E);
+		for(int i=0; i<E; i++){
+			graph->edge[i].src=edges_vector[i].first_V;
+			graph->edge[i].dest=edges_vector[i].second_V;
+			graph->edge[i].weight=edges_vector[i].weight;
+		}
+		KruskalMST(graph);
+		edges_vector.clear();
+		cout<<"Повторить работу программы? (да/нет)"<<endl;
+		cin>>choice;
+	}
+	
 
 	return 0;
 }
