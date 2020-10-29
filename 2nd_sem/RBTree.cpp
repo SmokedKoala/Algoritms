@@ -53,11 +53,8 @@ void inorderHelper(Node *root)
         return; 
   
     inorderHelper(root->left); 
-<<<<<<< Updated upstream:2nd_sem/RBTree.cpp
     cout << root->data << " ("<< (root->color==true? "Black":"Red") << ")  "; 
-=======
-    cout << root->data << "("<<root->color<<") "; 
->>>>>>> Stashed changes:2nd_sem/РџР 2.cpp
+//    cout << root->data << "("<<root->color<<") "; 
     inorderHelper(root->right); 
 } 
 
@@ -97,11 +94,8 @@ void levelOrderHelper(Node *root)
     while (!q.empty()) 
     { 
         Node *temp = q.front(); 
-<<<<<<< Updated upstream:2nd_sem/RBTree.cpp
         cout << temp->data << " ("<< (temp->color==true? "Black":"Red") << ")  "; 
-=======
-        cout << temp->data << "("<<root->color<<") "; 
->>>>>>> Stashed changes:2nd_sem/РџР 2.cpp
+
         q.pop(); 
   
         if (temp->left != NULL) 
@@ -311,7 +305,7 @@ int main(){
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     
-    cout << "Практическая работа №2 Бинарное дерево поиска. AVL дерево. Азаров Константин, ИКБО-02-19"
+    cout << "Практическая работа №7 Бинарное дерево поиска. AVL дерево. Азаров Константин, ИКБО-02-19"
          << endl;
     int typeNum;
     int commandNum=0, newNodeData;
