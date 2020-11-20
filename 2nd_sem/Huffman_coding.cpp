@@ -177,7 +177,7 @@ void printCodes(struct MinHeapNode* root, int arr[], int top) {
 	if (isLeaf(root)) { 
 //		Element temp;
 //		temp.data = root->data;
-		cout<< root->data <<": "; 
+		cout<<"'"<< root->data <<"': "; 
 		for (int i =0; i< elements_array.size();i++)
 			if (elements_array[i].data==root->data)
 				elements_array[i].num =printArr(arr, top); 	
@@ -191,6 +191,7 @@ void HuffmanCodes(vector <Element> elements_array , int size) {
 	struct MinHeapNode* root = buildHuffmanTree(elements_array, size); 
 	// вывести коды Хаффмана, используя дерево Хаффмана
 	int arr[MAX_TREE_HT], top = 0; 
+	cout<<"Полученная кодировка символов: "<<endl;
 	printCodes(root, arr, top); 
 } 
 
@@ -205,7 +206,6 @@ void calc_char_number(char value){
 	temp.data=value;
 	temp.freq=1;
 	elements_array.push_back(temp);
-//	freq_vec.push_back(1);		
 }
 	
  
@@ -227,6 +227,9 @@ void app(){
 			}
 			calc_char_number(' ');			
 		} 
+	cout<<"Частота появления символов: "<<endl;
+	for(int i =0; i <elements_array.size();i++)
+		cout<<"'"<<elements_array[i].data<<"': "<<elements_array[i].freq<<endl;
 	HuffmanCodes(elements_array, elements_array.size()); 
 	cout<<"Полученная строка: ";
 	for (int i = 0; i< first_str.size();i++){

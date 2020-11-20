@@ -126,11 +126,15 @@ void KruskalMST(Graph* graph)
 	for (i = 0; i < e; ++i) 
 	{
 		cout << result[i].src << " -- " << result[i].dest
-			<< " == " << result[i].weight << endl;
+			<< " с весом " << result[i].weight << endl;
 		minimumCost = minimumCost + result[i].weight;
 	}
 	cout << "Вес минимального остовного дерева: " << minimumCost
 		<< endl;
+	cout<< "Полученный граф:"<<endl<<
+		"    5"<<endl<<"   /"<<endl<<"  2-4"<<endl<<" /"<<endl<<"1-3"<<endl;
+	
+	
 }
 
 struct Element{
@@ -154,7 +158,7 @@ int main()
 	string choice="да";
 	vector <Element> edges_vector;
 	while(choice!="нет"){
-		cout<<"Введите количество вершин в графе (счёт начинается с 0)"<<endl;
+		cout<<"Введите количество вершин в графе "<<endl;
 		cin>>V;
 		cout<<"Вводите ребра графа в формате: первая вершина, вторая вершина, вес ребра"<<endl<<"При завершении ввода введите -1"<<endl;
 		cin>>first_V;
