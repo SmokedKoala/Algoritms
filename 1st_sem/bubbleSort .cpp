@@ -15,12 +15,10 @@ void swap(int *xp, int *yp) {
 
 //функция сортировки методом простого обмена
 long long int exchangeSort(int *arr, int n) {
-    int i, j;
     long long int M = 0, C = 0; //счетчики перемещений и сравнений
-    bool swapped;
-    for (i = 0; i < n - 1; i++) {
-        swapped = false;
-        for (j = 0; j < n - i - 1; j++) {
+    for (int i = 0; i < n - 1; i++) {
+        bool swapped = false;
+        for (int j = 0; j < n - i - 1; j++) {
             C++;
             if (arr[j] > arr[j + 1]) {
                 swap(&arr[j], &arr[j + 1]);
